@@ -1,0 +1,43 @@
+ <center>
+  <u><h3> Task Details </h3></u>
+ </center> 
+<div class="blurred-background task-card">
+  <p>
+    <strong>Task:</strong>
+    <%= link_to @task.title, @task %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @task.description %>
+  </p>
+
+  <p>
+    <strong>Assign_to:</strong>
+    <%= User.find(@task.assign_to).name  %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @task.status %>
+  </p> 
+
+  <p>
+    <strong>Timer:</strong>
+    <% if @task.timer.nil?  %>
+        <strong>NA</strong>
+    <% else  %> 
+      <%= link_to @task.timer.time_in_minute, timer_path(@task.timer) %>
+    <% end %>
+  </p>
+
+  <div><center>
+    <% if current_user.type == "Administrator"  %> 
+      <div class="blurred-background task-card"><%= link_to "Edit this task", edit_task_path(@task) %> </div>
+      <div class="blurred-background task-card"><%= link_to "Back to tasks", tasks_path %></div>
+      <div class="blurred-background task-card"><%= link_to "Destroy this task", @task, method: :delete %>  </div> 
+    <% else %>
+      <div class="blurred-background task-card"><%= link_to "Back to tasks", tasks_path %>  </div>
+    <% end %>  
+  </center></div>
+</div>

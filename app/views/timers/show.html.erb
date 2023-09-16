@@ -1,0 +1,38 @@
+ <center>
+  <u><h3> Timer with task: <%= @timer.task.title %></h3></u>
+ </center> <br>
+
+<div class="blurred-background task-card">
+  <p>
+    <strong>Timer (Minutes):</strong>
+    <%= @timer.time_in_minute %>
+  </p>
+
+  <p>
+    <strong>Task:</strong>
+    <%= @timer.task.title %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @timer.task.status %>
+  </p>
+
+  <p>
+    <strong>Assigned By:</strong>
+    <%= User.find(@timer.user_id).name %>
+  </p>
+    
+  <div><center>
+    <% if current_user.type == "Administrator"  %>
+        <div class="blurred-background task-card"><%= link_to "Edit this timer", edit_timer_path(@timer) %></div> 
+        <div class="blurred-background task-card"><%= link_to "Back to task", task_url %></div>
+        <div class="blurred-background task-card"><%= link_to "Destroy this timer", @timer, method: :delete %></div>
+    <% else %>
+      <% if current_user.type == "Workie"  %>
+        <div class="blurred-background task-card"><%= link_to "Start Timer", start_timer_path %></div>  
+        <div class="blurred-background task-card"><%= link_to "Back to tasks", task_url %></div>
+      <% end %>
+    <% end %>  
+  </center></div>
+</div>
